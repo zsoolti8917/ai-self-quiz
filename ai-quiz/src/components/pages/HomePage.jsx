@@ -22,6 +22,7 @@ function HomePage() {
   const [questionCounter, setQuestionCounter] = useState(0);
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
   // Initialize forms
   const addQuestionForm = useForm({
     defaultValues: {
@@ -44,7 +45,7 @@ function HomePage() {
 
   const fetchQuestions = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/questions');
+      const response = await fetch(`${apiUrl}/api/questions`);
       const data = await response.json();
       setQuestions(data);
     } catch (error) {
@@ -70,7 +71,7 @@ function HomePage() {
   };
   const handleAddQuestion = async (data) => {
     try {
-      const response = await fetch('http://localhost:5000/api/questions', {
+      const response = await fetch(`${apiUrl}/api/questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -117,7 +118,7 @@ function HomePage() {
     setIsLoading(true); // Start loading
   
     try {
-      const response = await fetch('http://localhost:5000/api/evaluate', {
+      const response = await fetch(`${apiUrl}/api/evaluate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -172,7 +173,7 @@ function HomePage() {
     setIsLoading(true); // Start loading
   
     try {
-      const response = await fetch('http://localhost:5000/api/conversation', {
+      const response = await fetch(`${apiUrl}/api/conversation`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
